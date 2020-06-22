@@ -7,21 +7,36 @@ Dark green: #28b485
 
 */
 
-/* Universal selector */
-* {
+/* Universal selector, *::before & after - all of the pseudo-elements too: */
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   /* How to make sure padding and borders are part of total height & width. */
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
+  /* Instead of border-box sizing here, we FORCE it inherit the size from the body: */
+  box-sizing: inherit;
+}
+
+html {
+  /* All sizes will now relative to this: */
+  /* When font-size is changed here or through browser or JS, all the rem values will change relative to this size! Allows for ease of media query! */
+  /* font-size: 10px; */
+  /* This has been deprecated as absolute px overriding of browser size (16px) is bad practice! Poor accessibility! So we should set root font to a percentage of browser size to allow for responsiveness AND maintaining links to rem resizing: 10/16 = 0.625 = 62.5%*/
+  font-size: 62.5%;
 }
 
 body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  /* font-size: 16px; */
   line-height: 1.7;
   color: #777;
-  padding: 30px;
+  /* padding: 30px; replace with 3rem = 30px / 10px font-size */
+  padding: 3rem;
+  /* See why box-sizing from *{}: */
+  box-sizing: border-box;
 }
 
 .header {
@@ -37,18 +52,21 @@ body {
 }
 
 /* Styling the logo: */
-.logo-box {
+.header__logo-box {
   /* absolute position from parent element is relative  */
   position: absolute;
-  top: 40px;
-  left: 40px;
+  /* top: 40px;
+  left: 40px; */
+  top: 4rem;
+  left: 4rem;
 }
 
-.logo {
-  height: 35px;
+.header__logo {
+  /* height: 35px; */
+  height: 3.5rem;
 }
 
-.text-box {
+.header__text-box {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -64,14 +82,17 @@ body {
   backface-visibility: hidden;
 
   /* adding padding between sub and button: */
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
+  margin-bottom: 6rem;
 }
 
-.heading-primary-main {
+.heading-primary--main {
   display: block;
-  font-size: 60px;
+  /* font-size: 60px; */
+  font-size: 6rem;
   font-weight: 400;
-  letter-spacing: 35px;
+  /* letter-spacing: 35px; */
+  letter-spacing: 3.5rem;
 
   /* Execution of the animation: */
   animation-name: moveInLeft;
@@ -79,11 +100,13 @@ body {
   animation-timing-function: ease-out;
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
   display: block;
-  font-size: 20px;
+  /* font-size: 20px; */
+  font-size: 2rem;
   font-weight: 700;
-  letter-spacing: 17.4px;
+  /* letter-spacing: 17.4px; */
+  letter-spacing: 1.74rem;
 
   /* Execution of the animation: */
   animation: moveInRight 1s ease-out;
@@ -92,12 +115,14 @@ body {
 @keyframes moveInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-100px);
+    /* transform: translateX(-100px); */
+    transform: translateX(-10rem);
   }
 
   80% {
     /* Get slight movement right before end: */
-    transform: translateX(10px);
+    /* transform: translateX(10px); */
+    transform: translateX(1rem);
   }
 
   100% {
@@ -109,12 +134,14 @@ body {
 @keyframes moveInRight {
   0% {
     opacity: 0;
-    transform: translateX(100px);
+    /* transform: translateX(100px); */
+    transform: translateX(10rem);
   }
 
   80% {
     /* Get slight movement left before end: */
-    transform: translateX(-10px);
+    /* transform: translateX(-10px); */
+    transform: translateX(-1rem);
   }
 
   100% {
@@ -126,7 +153,8 @@ body {
 @keyframes moveInBottom {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    /* transform: translateY(30px); */
+    transform: translateY(3rem);
   }
 
   100% {
@@ -139,26 +167,33 @@ body {
 .btn:visited {
   text-transform: uppercase;
   text-decoration: none;
-  padding: 15px 40px;
+  /* padding: 15px 40px; */
+  padding: 1.5rem 4rem;
   display: inline-block;
-  border-radius: 100px;
+  /* border-radius: 100px; */
+  border-radius: 10rem;
   transition: all .2s;
   /* need to change this position for pseudo-element position to work: */
   position: relative;
+  font-size: 1.6rem;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  /* transform: translateY(-3px); */
+  transform: translateY(-.3rem);
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, .2); */
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
 }
 
 .btn:active {
-  transform: translateY(-1px);
+  /* transform: translateY(-1px); */
+  transform: translateY(-0.1rem);
   /* Shadow change on button press: */
-  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, .2); */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .2);
 }
 
-.btn-white {
+.btn--white {
   background-color: #fff;
   color: #777;
 }
@@ -169,7 +204,8 @@ body {
   display: inline-block;
   height: 100%;
   width: 100%;
-  border-radius: 100px;
+  /* border-radius: 100px; */
+  border-radius: 10rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -177,7 +213,7 @@ body {
   transition: all 0.4s;
 }
 
-.btn-white::after {
+.btn--white::after {
   background-color: #fff;
 }
 
@@ -186,7 +222,7 @@ body {
   opacity: 0;
 }
 
-.btn-animated {
+.btn--animated {
   animation: moveInBottom .5s ease-out 0.75s;
   /* hide button before this animation runs: */
   animation-fill-mode: backwards;
